@@ -69,7 +69,67 @@ function useHandLayout() {
   return on;
 }
 
-export function Overlay() {
+let bootPlayed = false;
+
+function BootScreen({
+  done,
+  sessionWaiting,
+  sceneReady,
+  worldReady,
+}: {
+  done: boolean;
+  sessionWaiting: boolean;
+  sceneReady: boolean;
+  worldReady: boolean;
+}) {
+  const pctRef = useRef(8);
+  const [pct, setPct] = useState(8);
+  const [gone, setGone] = useState(bootPlayed);
+  useEffect(() => {
+    if (bootPlayed) return;
+    let raf = 0;
+    const tick = () => {
+      const goal = done ? 100 : sessionWaiting ? 30 : !sceneReady ? 54 : !worldReady ? 76 : 92;
+      const gap = goal - pctRef.current;
+      if (gap > 0.2) pctRef.current = Math.min(goal, pctRef.current + Math.max(0.22, gap * 0.08));
+      if (done) pctRef.current = Math.min(100, pctRef.current + 1.8);
+      if (done && pctRef.current > 99.2) pctRef.current = 100;
+      setPct(pctRef.current);
+      if (pctRef.current >= 100) {
+        bootPlayed = true;
+        window.setTimeout(() => setGone(true), 180);
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [done, sceneReady, sessionWaiting, worldReady]);
+  if (gone) return null;
+  const shown = Math.min(100, Math.round(pct));
+  return (
+    <div className="absolute inset-0 z-50 bg-black" data-ui>
+      <img src="/boot.jpg" alt="Abis Sonsuz Gece" className="h-full w-full object-cover object-center" />
+      <div className="absolute inset-x-0 bottom-[12%] flex flex-col items-center px-6">
+        <p className="mb-1.5 text-[13px] font-semibold tracking-wide text-[#e7fdff]" style={{ textShadow: "0 0 10px #4df0ff" }}>
+          {shown}%
+        </p>
+        <div className="h-3.5 w-[min(28rem,70vw)] overflow-hidden rounded-full border-2 border-[#3ad4e4] bg-black/75 p-px shadow-[0_0_18px_rgba(58,220,235,0.55)]">
+          <div
+            className="h-full rounded-full transition-[width] duration-100"
+            style={{
+              width: `${shown}%`,
+              background: "linear-gradient(90deg, #042f38 0%, #0c7f92 38%, #5eebf8 82%, #ffffff 100%)",
+              boxShadow: "0 0 14px #6df6ff",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function Overlay({ sceneReady = false }: { sceneReady?: boolean }) {
   const playing = useHud((s) => s.playing);
   const zone = useHud((s) => s.zone);
   const { user, isPending } = useCurrentUserState();
@@ -82,7 +142,9 @@ export function Overlay() {
     const id = window.setTimeout(() => setSessionSlow(true), 2500);
     return () => window.clearTimeout(id);
   }, [isPending]);
+  const ready = useHud((s) => s.ready);
   const sessionWaiting = isPending && !sessionSlow;
+  const bootDone = !sessionWaiting && sceneReady && ready;
   const activeId = useSession((s) => s.activeId);
   const nick = useRpg((s) => s.nick);
   const [mapOpen, setMapOpen] = useState(false);
@@ -300,6 +362,7 @@ export function Overlay() {
       onWheel={onWheel}
     >
       <PortraitLock />
+      {!playing ? <BootScreen done={bootDone} sessionWaiting={sessionWaiting} sceneReady={sceneReady} worldReady={ready} /> : null}
       {playing && activeId ? <NetLive nick={nick} /> : null}
       {playing ? (
         <div className="pointer-events-none absolute inset-0">
@@ -322,9 +385,7 @@ export function Overlay() {
         </div>
       ) : (
         <div className="absolute inset-0 grid place-items-center overflow-auto bg-bg/55 px-4 py-6 touch-pan-y">
-          {sessionWaiting ? (
-            <p className="text-sm text-muted">Oturum açılıyor…</p>
-          ) : !user ? (
+          {sessionWaiting ? null : !user ? (
             <AuthScreens />
           ) : (
             <CharacterScreens />

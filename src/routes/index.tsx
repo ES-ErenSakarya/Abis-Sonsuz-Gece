@@ -32,13 +32,13 @@ function Home() {
       {worldError ? (
         <button
           type="button"
-          className="absolute top-4 left-1/2 z-40 -translate-x-1/2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
+          className="absolute top-4 left-1/2 z-[60] -translate-x-1/2 rounded-md border border-border bg-surface px-3 py-2 text-sm text-fg"
           onClick={() => window.location.reload()}
         >
           Dünya açılmadı. Yenile
         </button>
       ) : null}
-      <Overlay />
+      <Overlay sceneReady={!!Scene} />
     </main>
   );
 }
