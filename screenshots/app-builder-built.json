@@ -1,0 +1,43 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Abis: Sonsuz Gece MMORPG",
+      "hasCanvas": false,
+      "bodyTextLen": 186,
+      "bodyTextHash": "a97e923fdb056c20d045ce583685c07208251eec0644900d48e8a73e3ea3b13f",
+      "bodyTextPrefix": "Dünya hazırlanıyor MMORPG Abis: Sonsuz Gece Aynı köyde başkaları",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Abis: Sonsuz Gece MMORPG",
+      "hasCanvas": false,
+      "bodyTextLen": 163,
+      "bodyTextHash": "f75fbf1db8f938631f4e8e1ba7bc14fc76b15f728fd6bfdb7c791d6f69bcfd63",
+      "bodyTextPrefix": "Dünya hazırlanıyor Telefonu yatay çevir Dikeyde oynanmaz. Yan çe",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: canvas disappeared",
+    "desktop: body text replaced (similar length, page start changed)",
+    "mobile: canvas disappeared",
+    "mobile: body text changed (295 -> 163 chars, hash mismatch)"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Abis: Sonsuz Gece MMORPG",
+      "hasCanvas": true,
+      "bodyTextLen": 167,
+      "bodyTextHash": "12b0cf0b039901fec10374b899b65ad48ea39ca8d78d804f394d0471e29fd860",
+      "bodyTextPrefix": "MMORPG Abis: Sonsuz Gece Aynı köyde başkaları da yürür. Hesabın ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Abis: Sonsuz Gece MMORPG",
+      "hasCanvas": true,
+      "bodyTextLen": 295,
+      "bodyTextHash": "e3bf48ee41f9471ea6e7a3fc01b9743699d4b8d33f63dc6378df17cf2dc97dd5",
+      "bodyTextPrefix": "Telefonu yatay çevir Dikeyde oynanmaz. Yan çevirince çubuk, vuru",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

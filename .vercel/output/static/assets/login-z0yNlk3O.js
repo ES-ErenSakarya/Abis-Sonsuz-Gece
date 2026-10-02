@@ -1,0 +1,1 @@
+import{r as e,s as t}from"./AccountScreens-BS0yjUlm.js";import{a as n,n as r}from"./index-CpZvNi_j.js";var i=n();function a(){let{user:n,isPending:a}=t();return!a&&n?(0,i.jsx)(r,{to:`/`}):(0,i.jsx)(e,{})}export{a as component};
